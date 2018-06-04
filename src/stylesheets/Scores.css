@@ -1,0 +1,14 @@
+.list {
+  background: lightgray;
+  height: 600px;
+  width: 300px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  overflow: scroll;
+  padding: 10px;
+}
+
+.list li {
+  margin: 15px 0
+}
