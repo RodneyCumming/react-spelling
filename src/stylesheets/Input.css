@@ -1,0 +1,142 @@
+.inputWrapper {
+  border-radius: 10px;
+  margin: 50px 0 30px;
+  width: 700px;
+  text-align: center;
+  background: white;
+}
+
+.centerPannel {
+  float: left;
+  width: 700px;
+  position: relative;
+}
+
+.correctWord {
+  margin: 50px 0 0;
+  display: inline-block;
+  width: 500px;
+  border-radius: 20px;
+  border: 2px solid #87c7bf;
+  line-height: 50px;
+  color: black;
+  height: 110px;
+  position: relative;
+  background: #f7fbfb;
+}
+
+
+.input {
+  border: 2px solid #8eacc7;
+  line-height: 50px;
+  width: 500px;
+  margin: 50px 0 0;
+  display: inline-block;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.input::placeholder {
+  color: #eee
+}
+
+.buttonContainer {
+  margin-top: 70px;
+  width: 100%;
+}
+
+button {
+  width: 33.33333%;
+  height: 80px;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+
+.audioBtn {
+  background: #abc5de;
+  border-radius: 0 0 0 10px;
+}
+
+.dictBtn {
+  background: #eeb393;
+}
+
+.skipBtn {
+  background: #87c7bf;
+  border-radius: 0 0 10px 0;
+}
+
+.diff {
+  font-size: 32px;
+}
+
+.missingLetter {
+  background: #ecdfdf;
+}
+
+.extraLetter {
+  background: #e3dfec;
+}
+
+.correctLetter {
+  background: #dfeceb;
+}
+
+.resultsHider {
+  background: #f7fbfb;
+  height: 110px;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 500px;
+  border-radius: 20px;
+  border: 2px solid #87c7bf;
+}
+
+.hide {
+  opacity: 1;
+}
+
+.show {
+  opacity: 0;
+  transition: all 1s;
+}
+
+.inputHeader {
+  background: #223b52;
+  color: lightgray;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 40px;
+  margin: 0 0 20px;
+}
+
+.inputIcon {
+  font-size: 25px;
+}
+
+.eyeIcon {
+  position: absolute;
+  top: 168px;
+  left: 550px;
+  color: #68aca4;
+  padding: 10px;
+  font-size: 45px;
+  transition: opacity 0.3s;
+}
+
+.eyeIcon:hover {
+  cursor: pointer;
+}
+
+.eyeFaded {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}

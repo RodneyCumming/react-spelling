@@ -2,30 +2,241 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import '../stylesheets/App.css';
 import '../stylesheets/Scores.css';
+import '../stylesheets/Header.css';
+import '../stylesheets/Input.css';
+import '../stylesheets/LeftPannel.css';
+import '../stylesheets/RightPannel.css';
 import { wordlist } from '../data/spellingData2';
 import { diff_match_patch } from './diff_match_patch_uncompressed.js'
+import Volume from 'react-icons/lib/fa/volume-up';
+import Search from 'react-icons/lib/fa/search';
+import Forward from 'react-icons/lib/fa/step-forward';
+import Eye from 'react-icons/lib/fa/eye-slash';
+import {PieChart} from 'react-easy-chart';
 
-class Score extends Component {
+class Header extends Component {
+  render() {
+    return (
+      <div className="header">
+        <h2>Spelling Practicer</h2>
+      </div>
+    )
+  }
+}
+
+class Footer extends Component {
+  render() {
+    return (
+      <div className="footer">
+        <h2>something something github</h2>
+      </div>
+    )
+  }
+}
+
+class Settings extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      voicesList: []
+    }
+  }
+
+  componentDidMount() {
+    this.populateVoiceList()
+    console.log('??????????????????????//')
+  }
+
+  populateVoiceList() {
+    let voices;
+    window.speechSynthesis.onvoiceschanged = () => {
+      voices = window.speechSynthesis.getVoices();
+      this.setState({
+        voicesList: voices
+      })
+    };
+    // for(let i = 0; i < voices.length ; i++) {
+    //   console.log(voices[i])
+    //   // var option = <option>;
+    //   // option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+    //   //
+    //   // if(voices[i].default) {
+    //   //   option.textContent += ' -- DEFAULT';
+    //   // }
+    //   //
+    //   // option.setAttribute('data-lang', voices[i].lang);
+    //   // option.setAttribute('data-name', voices[i].name);
+    //   // </option>
+    // }
+  }
+
+  // <h1 className='settingsHeader'>Settings</h1>
+  render() {
+    const voicesList = this.state.voicesList.map(value => {
+      return <li>{value.voiceURI}</li>
+    })
+
+    return (
+      <div className='settings'>
+          <div className="settingsOption">
+            <ul className="voiceList">
+              <li className="voiceOption">google voice</li>
+              {voicesList}
+            </ul>
+          </div>
+          <div className="settingsOption">
+            <p className="settingsLabel">Voice</p>
+          </div>
+          <div className="settingsOption">
+            <p className="settingsLabel">Volumne</p>
+          </div>
+          <div className="settingsOption">
+            <p className="settingsLabel">Volumne</p>
+          </div>
+      </div>
+    )
+  }
+}
+
+class LeftPannel extends Component {
+  render() {
+
+    return (
+      <div className="LeftPannel">
+        <div className="stats">
+          <h1 className="statsHeader">Stats</h1>
+          <ul>
+            <li className="statsBox">
+              <p className="statsLabel">Level</p>
+              <p className="statsValue">1</p>
+            </li>
+            <li className="statsBox">
+              <p className="statsLabel">Correct</p>
+              <p className="statsValue">0</p>
+            </li>
+            <li className="statsBox">
+              <p className="statsLabel">Percent</p>
+              <p className="statsValue">100%</p>
+            </li>
+            <li className="statsBox">
+              <p className="statsLabel">Correct</p>
+              <p className="statsValue">0</p>
+            </li>
+            <li className="statsBox">
+              <p className="statsLabel">Percent</p>
+              <p className="statsValue">100%</p>
+            </li>
+          </ul>
+        </div>
+        <div className="chart">
+          <h1 className="chartHeader">Chart</h1>
+          <div className="pieChartContainer">
+            <PieChart
+              className='pieChart'
+              size={200}
+              innerHoleSize={70}
+              data={[
+                { key: 'A', value: 100 },
+                { key: 'B', value: 200 },
+                { key: 'C', value: 50 }
+              ]}
+              />
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+class RightPannel extends Component {
   render() {
     let sorted = Object.keys(this.props.rules).sort((a, b) => this.props.rules[b] - this.props.rules[a])
-    console.log(sorted)
-    console.log(this.props.rules)
 
     const scoresList = sorted.map(key =>
     <li value={key} key={key}>
-      <p>{key}</p>
-      <p>{this.props.rules[key]}</p>
+      <p className='ruleScore'>{this.props.rules[key]}</p>
+      <p className='ruleName'>{key}</p>
     </li>
     )
     return (
-      <div>
-        <ul className="list">
+      <div className="rightPannel">
+        <ul>
           {scoresList}
         </ul>
       </div>
     )
   }
 }
+
+class Input extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showWord: false
+    }
+  }
+
+  componentDidMount() {
+
+    findDOMNode(this.refs.input)
+      .addEventListener('keydown', (e) => {
+        this.props.checkKeyDown(e, this.refs.input.value);
+        e.code === 'Enter' ? this.refs.input.value = '' : null;
+      }
+    )
+  }
+  render() {
+
+    const diffEle = this.props.difference.map(value => {
+      return <span className={
+          (value[0] === 1)
+            ? 'extraLetter'
+            : (value[0] === -1)
+              ? 'missingLetter'
+              : 'correctLetter'
+        }>
+        {value[1]}
+      </span>
+    })
+    console.log(diffEle)
+
+    return (
+      <div className="inputWrapper">
+
+        <h1 className="inputHeader">Spelling Input</h1>
+        <div className="correctWord">
+          <h1>{this.props.correctWord}</h1>
+          <p className="diff">
+            {diffEle}
+          </p>
+
+          <div className={(this.props.showWord === false)
+                  ? "resultsHider hide"
+                  : 'resultsHider show'}>
+          </div>
+        </div>
+        <Eye className={(this.props.showWord === false)
+                ? "eyeIcon eyeFaded"
+                : 'eyeIcon'}
+              onClick={() => this.props.toggleWord()}/>
+
+        <input ref='input' className="input" placeholder="type here"/>
+
+        <div className='buttonContainer'>
+          <button className="audioBtn"
+            onClick={() => this.props.playWord()}
+            ><Volume className="inputIcon"/>
+          </button>
+          <button className="dictBtn"><Search className="inputIcon" /></button>
+          <button className="skipBtn" onClick={() => this.props.nextWord()}><Forward className="inputIcon" /></button>
+        </div>
+      </div>
+    )
+    //<button onClick={() => console.log(this.state)}>State</button>
+  }
+}
+
 
 class App extends Component {
   constructor(props) {
@@ -43,41 +254,67 @@ class App extends Component {
         accDoubleConsonant: 0,
         orderVowel: 0,
         orderConsonant: 0,
-        orderBoth: 0,
-        'ough not augh': 0,
-        'augh not ough': 0
-      }
+        orderBoth: 0
+      },
+      difference: [],
+      showWord: false
+
     }
-    // this.checkWord = this.checkWord.bind(this)
+    this.checkKeyDown = this.checkKeyDown.bind(this)
     this.checkRules = this.checkRules.bind(this)
+    this.playWord = this.playWord.bind(this)
+    this.toggleWord = this.toggleWord.bind(this)
+    this.nextWord = this.nextWord.bind(this)
   }
 
-  componentDidMount() {
-    findDOMNode(this.refs.input)
-      .addEventListener('keydown', (e) => this.checkKeyDown(e))
-  }
+
 
   nextWord() {
     let words = Object.keys(wordlist[0]);
     let randomWord = words[Math.floor(Math.random() * words.length)];
     this.setState({
-      correctWord: randomWord
+      correctWord: randomWord,
+      difference: []
     })
+    this.playWord()
+  }
+
+  playWord() {
+    console.log('playword', this)
+    var voiceGetter = setInterval(() => {
+      var voices = window.speechSynthesis.getVoices();
+      if (voices.length !== 0) {
+        var msg = new SpeechSynthesisUtterance(this.state.correctWord);
+        msg.voice = voices.filter((voice) =>{
+          return voice.name == 'Google UK English Female';
+        })[0];
+        msg.volume = 1;
+        msg.rate = 1;
+        msg.pitch = 0;
+        msg.lang = 'en-US';
+        speechSynthesis.speak(msg);
+        clearInterval(voiceGetter);
+      }
+    }, 100)
   }
 
   compareWords() {
-    let resultStr = '';
     if (this.state.input === this.state.correctWord) {
-      resultStr = 'correct';
+      this.setState({
+        result: 'correct',
+        showWord: false
+      })
+
       this.nextWord();
-      this.refs.input.value = '';
+
     } else {
-      resultStr = 'incorrect';
+      this.setState({
+        result: 'incorrect',
+        showWord: true
+      })
       this.checkWord();
     }
-    this.setState({
-      result: resultStr
-    })
+    console.log(this.state)
   }
 
   checkWord() {
@@ -85,6 +322,9 @@ class App extends Component {
     let inputValue = this.state.input
     let correctWord = this.state.correctWord
     let diff = dmp.diff_main(this.state.correctWord, inputValue);
+    this.setState({
+      difference: diff
+    })
     dmp.diff_cleanupSemantic(diff);
     let extraLetters = '';
     let missingLetters = '';
@@ -298,128 +538,54 @@ class App extends Component {
   }
 
 
-  checkKeyDown(e) {
+  checkKeyDown(e, inputValue) {
     if (e.code === 'Enter') {
       this.setState({
-         input: this.refs.input.value
+         input: inputValue
       })
       this.compareWords()
     }
   }
 
 
+  toggleWord() {
+    this.setState (prevState => ({
+      showWord: !prevState.showWord
+    }))
+  }
+
+  // <div className="temp">
+  //   <h1>{this.state.correctWord}</h1>
+  //   <br/>
+  //   <button onClick={() => this.nextWord()}>Next</button>
+  //   <h1>{this.state.result}</h1>
+  // </div>
   render() {
+    console.log(this.state)
     return (
       <div className="App">
-        <h1>{this.state.correctWord}</h1>
-        <input ref='input'/>
-        <button onClick={() => this.nextWord()}>Next</button>
-        <h1>{this.state.result}</h1>
-        <button onClick={() => console.log(this.state)}>State</button>
-        <Score rules={this.state.rules}/>
+        <Header />
+        <LeftPannel />
+
+        <div className="centerPannel">
+          <Input correctWord={this.state.correctWord} nextWord={this.nextWord} result={this.state.result} toggleWord={this.toggleWord} playWord={this.playWord} difference={this.state.difference} checkKeyDown={this.checkKeyDown} showWord={this.state.showWord} nextWord={this.nextWord}/>
+          <Settings />
+        </div>
+
+
+
+
+        <RightPannel rules={this.state.rules} />
+
+
+
+        <button style={{position: 'absolute', top: 0, left: 0, background: 'none'}} onClick={() => console.log(this.state)}>State</button>
+
+
+        <Footer />
       </div>
     );
   }
 }
 
 export default App;
-
-
-// // arrays to make rules
-// let vowels = ['a', 'e', 'i', 'o', 'u']
-// let prefixes = ['un', 'il', 'im', 'in', 'ir', 'a', 'pre', 'ex', 'anti', 'dis']
-//
-// // rules arrays
-// var ableWords = [];
-// var ibleWords = [];
-
-// -----------anywhere in word
-// how to recommend words when used double instead of single?
-  // list
-
-// check if acciddentl double ✔
-// check if missing double ✔
-// check if extra letter ✔
-// check if missing letter ✔
-// check if two letter wrong way round ✔
-
-
-// single or double vowels ✔
-  // chech if end of word ✔
-  // incorrect two vowels ✔
-    // wrong way round ✔
-    // i before e     ✔
-    // oo vs ou   ✔
-
-  // incorrect single vowel ✔
-    // missing vowel () ✔
-
-// single vs double consenent ✔
-  // middle and end  ✔
-  // g vs j ✔
-  // dg vs g ✔
-
-
-// -----------end of words
-// ough vs augh ✔
-// ant vs ent (end) ✔
-// ance vs ence (end) ✔
-// ery vs ary (end) ✔
-// eur vs er (end) ✔
-// ite vs ate (end) ✔
-// sy vs cy (end) ✔
-// ly vs ally (end) ✔
-// ends in se vs cs (sense) (end) ✔
-// cede vs ceed (end) ✔
-// ys vs ies (end of words) ✔
-// s vs es (end of words) ✔
-// drop e before ing (end of words) ✔
-// fs vs ves (calf, calves) (end) ✔
-
-// -----------start of words
-
-// fur vs fu (start) ✔
-
-
-// for vs fore vs four (start and end) ✔
-// cian, sion, tion (end) ✔
-// ar vs er vs or (end) ✔
-// sc in middle of word (conscious) ✔
-
-// check if part of word is wrong (ie ough) but without knowing how they got it wrong
-  // 1. check if word contains (ough) with regex.test
-  // 2. regex.match to get rest of word
-  // 3. check if correct inputAnswer includes before and after of regex.match
-    // make sure before and after are in order ✔
-
-// change above to only include difficult parts of words like psy, phy, ough
-// don't check all the others ✔
-// add more parts of words
-
-// fix database
-//  - find all names/propernouns by captital letters
-//  - remove all entries with symbols and acronymns and swear words
-
-
-// words.forEach(function(value, index, array) {
-//   console.log(value)
-//   if (/able\b/.test(value)) {
-//     ableWords.push(value)
-//   }
-//   if (/ible\b/.test(value)) {
-//     ibleWords.push(value)
-//   }
-// })
-
-// var words = Object.keys(data3[0])
-// for (let i = 0; i < words.length; i++) {
-//   data3[0][words[i]] = {};
-// }
-
-
-// functinality
-// record how often you spell each letter wrong
-  // also, what letters are you consistenly using to replace what letters
-// which letter you use too much, not enough...
-// manually choose what type of words you want to practice
-// repeat words that you get wrong

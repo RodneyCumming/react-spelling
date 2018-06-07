@@ -1,28 +1,161 @@
 .App {
+  height: 100vh;
+  position: relative;
+}
+
+.temp {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.LeftPannel {
+  float: left;
+  width: calc(50% - 350px);
+  min-height: calc(100vh - 100px);
+  text-align: center;
+  opacity: 0.5;
+}
+
+.chart {
+  text-align: left;
+  width: 300px;
+  display: block;
+  margin: 25px auto 0;
+  border-radius: 10px;
+  background: white;
+  height: 300px;
+}
+
+
+.rightPannel {
+  float: right;
+  width: calc(50% - 350px);
+  height: calc(100vh - 130px);
+  margin-top: 0px;
+  padding: 0 0;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.rightPannel ul {
+  text-align: left;
+  width: 300px;
+  display: block;
+  margin: 50px auto 0;
+  border-radius: 10px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.rightPannel li {
+  text-align: left;
+  opacity: 0.5;
+  padding: 15px 10px;
+  font-size: 14px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-bottom: 5px solid #14b9d6;
+}
+
+.ruleName {
+  display: inline-block;
+  width: 130px;
+}
+
+.ruleScore {
+  display: inline-block;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid black;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.pieChartContainer {
+  margin: auto;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.chartHeader {
+  background: #f27935;
   color: white;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 40px;
+  margin: 0 0 20px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.stats {
+  text-align: left;
+  width: 300px;
+  display: block;
+  margin: 50px auto 0;
+  border-radius: 10px;
+  background: white;
 }
 
-.App-intro {
-  font-size: large;
+.statsHeader {
+  background: #1fbba6;
+  color: white;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 40px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.statsBox {
+  padding: 14px 20px;
+  border-bottom: 1px solid #d7f6f3;
+}
+
+.statsLabel {
+  display: inline-block;
+  width: 200px;
+}
+
+.statsValue {
+  display: inline-block;
+  text-align: center;
+  width: 60px;
+}
+
+/* settings */
+.settings {
+  border-radius: 10px;
+  /* width: 700px;
+  background: #f4f6f8; */
+  height: 200px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingsOption {
+  background: #f4f6f8;
+  border-bottom: 4px solid #87c7bf;
+  border-radius: 5px;
+  display: inline-block;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  width: 24%;
+}
+
+.footer {
+  width: 100%;
+  height: 30px;
+
+  float: left
+  /* position: absolute;
+  bottom: 0 */
+}
+
+.footer h2{
+  color: #c7c7c7;
+  text-align: center;
+  font-size: 13px;
 }
