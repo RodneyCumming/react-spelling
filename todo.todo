@@ -1,0 +1,36 @@
+Current tasks:
+☐ make responsive
+☐ check different browsers
+☐ check where I can use function components
+
+Nessesary functionality:
+☐ improve functionality of progress bar (smooth transition)
+☐ have user maintain 80% success rate not 50%
+  - greater decrease in level for incorrect anwsers
+  - 1/8 => level should be increasing
+  - 1/7 => level should be decreasing
+  - incorrect answer leads to 7x correct answer decrease
+
+funture functinality:
+☐ Report mode
+    ☐ list incorrect words
+☐ study or practice modes (different color schemes)
+    ☐ have this as toggle in top right hand corner
+    ☐ manually choose what type of words you want to practice
+    ☐ repeat words that you get wrong
+☐ color clues for words
+☐ give user options for clues - number of letters, starting letter
+☐ hot keys
+
+styling:
+
+Bugs:
+  ☐ volume bar hard to use
+  ☐ issue with counting incorrect letters -'breif'
+
+tests:
+
+Refactoring:
+
+Archetechture:
+  ☐ remove uneccesary packages

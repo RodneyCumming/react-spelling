@@ -1,241 +1,23 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+
+// Stylesheets
 import '../stylesheets/App.css';
-import '../stylesheets/Scores.css';
-import '../stylesheets/Header.css';
-import '../stylesheets/Input.css';
-import '../stylesheets/LeftPannel.css';
-import '../stylesheets/RightPannel.css';
-import { wordlist } from '../data/spellingData2';
-import { diff_match_patch } from './diff_match_patch_uncompressed.js'
-import Volume from 'react-icons/lib/fa/volume-up';
-import Search from 'react-icons/lib/fa/search';
-import Forward from 'react-icons/lib/fa/step-forward';
-import Eye from 'react-icons/lib/fa/eye-slash';
-import {PieChart} from 'react-easy-chart';
 
-class Header extends Component {
-  render() {
-    return (
-      <div className="header">
-        <h2>Spelling Practicer</h2>
-      </div>
-    )
-  }
-}
+// data
+import { wordlist } from '../data/spellingData';
+import { levels } from '../data/levels';
 
-class Footer extends Component {
-  render() {
-    return (
-      <div className="footer">
-        <h2>something something github</h2>
-      </div>
-    )
-  }
-}
+// libraries
+import { diff_match_patch } from '../libraries/diff_match_patch_uncompressed.js'
 
-class Settings extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      voicesList: []
-    }
-  }
-
-  componentDidMount() {
-    this.populateVoiceList()
-    console.log('??????????????????????//')
-  }
-
-  populateVoiceList() {
-    let voices;
-    window.speechSynthesis.onvoiceschanged = () => {
-      voices = window.speechSynthesis.getVoices();
-      this.setState({
-        voicesList: voices
-      })
-    };
-    // for(let i = 0; i < voices.length ; i++) {
-    //   console.log(voices[i])
-    //   // var option = <option>;
-    //   // option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
-    //   //
-    //   // if(voices[i].default) {
-    //   //   option.textContent += ' -- DEFAULT';
-    //   // }
-    //   //
-    //   // option.setAttribute('data-lang', voices[i].lang);
-    //   // option.setAttribute('data-name', voices[i].name);
-    //   // </option>
-    // }
-  }
-
-  // <h1 className='settingsHeader'>Settings</h1>
-  render() {
-    const voicesList = this.state.voicesList.map(value => {
-      return <li>{value.voiceURI}</li>
-    })
-
-    return (
-      <div className='settings'>
-          <div className="settingsOption">
-            <ul className="voiceList">
-              <li className="voiceOption">google voice</li>
-              {voicesList}
-            </ul>
-          </div>
-          <div className="settingsOption">
-            <p className="settingsLabel">Voice</p>
-          </div>
-          <div className="settingsOption">
-            <p className="settingsLabel">Volumne</p>
-          </div>
-          <div className="settingsOption">
-            <p className="settingsLabel">Volumne</p>
-          </div>
-      </div>
-    )
-  }
-}
-
-class LeftPannel extends Component {
-  render() {
-
-    return (
-      <div className="LeftPannel">
-        <div className="stats">
-          <h1 className="statsHeader">Stats</h1>
-          <ul>
-            <li className="statsBox">
-              <p className="statsLabel">Level</p>
-              <p className="statsValue">1</p>
-            </li>
-            <li className="statsBox">
-              <p className="statsLabel">Correct</p>
-              <p className="statsValue">0</p>
-            </li>
-            <li className="statsBox">
-              <p className="statsLabel">Percent</p>
-              <p className="statsValue">100%</p>
-            </li>
-            <li className="statsBox">
-              <p className="statsLabel">Correct</p>
-              <p className="statsValue">0</p>
-            </li>
-            <li className="statsBox">
-              <p className="statsLabel">Percent</p>
-              <p className="statsValue">100%</p>
-            </li>
-          </ul>
-        </div>
-        <div className="chart">
-          <h1 className="chartHeader">Chart</h1>
-          <div className="pieChartContainer">
-            <PieChart
-              className='pieChart'
-              size={200}
-              innerHoleSize={70}
-              data={[
-                { key: 'A', value: 100 },
-                { key: 'B', value: 200 },
-                { key: 'C', value: 50 }
-              ]}
-              />
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
-
-class RightPannel extends Component {
-  render() {
-    let sorted = Object.keys(this.props.rules).sort((a, b) => this.props.rules[b] - this.props.rules[a])
-
-    const scoresList = sorted.map(key =>
-    <li value={key} key={key}>
-      <p className='ruleScore'>{this.props.rules[key]}</p>
-      <p className='ruleName'>{key}</p>
-    </li>
-    )
-    return (
-      <div className="rightPannel">
-        <ul>
-          {scoresList}
-        </ul>
-      </div>
-    )
-  }
-}
-
-class Input extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showWord: false
-    }
-  }
-
-  componentDidMount() {
-
-    findDOMNode(this.refs.input)
-      .addEventListener('keydown', (e) => {
-        this.props.checkKeyDown(e, this.refs.input.value);
-        e.code === 'Enter' ? this.refs.input.value = '' : null;
-      }
-    )
-  }
-  render() {
-
-    const diffEle = this.props.difference.map(value => {
-      return <span className={
-          (value[0] === 1)
-            ? 'extraLetter'
-            : (value[0] === -1)
-              ? 'missingLetter'
-              : 'correctLetter'
-        }>
-        {value[1]}
-      </span>
-    })
-    console.log(diffEle)
-
-    return (
-      <div className="inputWrapper">
-
-        <h1 className="inputHeader">Spelling Input</h1>
-        <div className="correctWord">
-          <h1>{this.props.correctWord}</h1>
-          <p className="diff">
-            {diffEle}
-          </p>
-
-          <div className={(this.props.showWord === false)
-                  ? "resultsHider hide"
-                  : 'resultsHider show'}>
-          </div>
-        </div>
-        <Eye className={(this.props.showWord === false)
-                ? "eyeIcon eyeFaded"
-                : 'eyeIcon'}
-              onClick={() => this.props.toggleWord()}/>
-
-        <input ref='input' className="input" placeholder="type here"/>
-
-        <div className='buttonContainer'>
-          <button className="audioBtn"
-            onClick={() => this.props.playWord()}
-            ><Volume className="inputIcon"/>
-          </button>
-          <button className="dictBtn"><Search className="inputIcon" /></button>
-          <button className="skipBtn" onClick={() => this.props.nextWord()}><Forward className="inputIcon" /></button>
-        </div>
-      </div>
-    )
-    //<button onClick={() => console.log(this.state)}>State</button>
-  }
-}
+// Components
+import { Footer } from './Footer'
+import { Header } from './Header'
+import { LeftPanel } from './LeftPanel'
+import { RightPanel } from './RightPanel'
+import { Input } from './Input'
+import { BarChart } from './BarChart'
 
 
 class App extends Component {
@@ -245,19 +27,42 @@ class App extends Component {
       correctWord: 'word',
       input: '',
       result: 'result',
-      // spelling rules
-      // missingDoubleVowel: 0,
       rules: {
-        missingDoubleConsonant: 0,
-        missingDoubleVowel: 0,
-        accDoubleVowel: 0,
-        accDoubleConsonant: 0,
-        orderVowel: 0,
-        orderConsonant: 0,
-        orderBoth: 0
+        '2xConst': 0,
+        wrongVowel: 0,
+        wrongConst: 0,
+        vowelOrder: 0,
+        extraLetters: 0,
+        missingLetters: 0
+      },
+      morphemes: {
+        'ough not augh': 0,
+        'augh not ough': 0,
+        'ible not able': 0,
+        'able not ible': 0,
+        'ance not ence': 0,
+        'ence not ance': 0,
+        'cede not ceed': 0,
+        'ceed not cede': 0,
       },
       difference: [],
-      showWord: false
+      showWord: false,
+      activeVoice: '',
+      volume: 1,
+      level: 10,
+      correctNumber: 0,
+      totalNumber: 0,
+      incorrectLetters: [],
+      incorrectLettersObj: {},
+      wrongLettersTotal: '',
+      startOfWord: 0,
+      middleOfWord: 0,
+      endOfWord: 0,
+      firstIncorrect: false,
+      definition: 'default',
+      showDefinition: false,
+      levelsIncreaser: 10,
+      prevResult: 'default'
 
     }
     this.checkKeyDown = this.checkKeyDown.bind(this)
@@ -265,30 +70,51 @@ class App extends Component {
     this.playWord = this.playWord.bind(this)
     this.toggleWord = this.toggleWord.bind(this)
     this.nextWord = this.nextWord.bind(this)
+    this.updateVoice = this.updateVoice.bind(this)
+    this.handleVolumeChange = this.handleVolumeChange.bind(this)
+    this.handleToggleDefinition = this.handleToggleDefinition.bind(this)
   }
 
-
-
   nextWord() {
-    let words = Object.keys(wordlist[0]);
-    let randomWord = words[Math.floor(Math.random() * words.length)];
+    let currentLevel = Math.floor(this.state.level/10)
+    function getNearLevel(currentLevel) {
+      let weightedLevel = currentLevel
+      let randomNumber = Math.random()
+      if (randomNumber < 0.1 && currentLevel > 2)  {
+        weightedLevel -= 2;
+      } else if (randomNumber < 0.3 && currentLevel > 1) {
+        weightedLevel -= 1;
+      } else if (randomNumber < 0.7) {
+
+      } else if (randomNumber < 0.9 && currentLevel < 26) {
+        weightedLevel += 1;
+      } else if (currentLevel < 25){
+        weightedLevel += 2;
+      }
+      return weightedLevel
+    }
+    let nearLevel = getNearLevel(currentLevel)
+    let randomWord = levels[nearLevel][Math.floor(Math.random() * levels[nearLevel].length)]
     this.setState({
       correctWord: randomWord,
-      difference: []
+      definition: wordlist[randomWord]['definition'],
+      difference: [],
+      showDefinition: false,
+      result: 'result'
     })
     this.playWord()
   }
 
   playWord() {
-    console.log('playword', this)
     var voiceGetter = setInterval(() => {
       var voices = window.speechSynthesis.getVoices();
       if (voices.length !== 0) {
         var msg = new SpeechSynthesisUtterance(this.state.correctWord);
         msg.voice = voices.filter((voice) =>{
-          return voice.name == 'Google UK English Female';
+
+          return voice.name === this.state.activeVoice;
         })[0];
-        msg.volume = 1;
+        msg.volume = this.state.volume;
         msg.rate = 1;
         msg.pitch = 0;
         msg.lang = 'en-US';
@@ -299,22 +125,57 @@ class App extends Component {
   }
 
   compareWords() {
-    if (this.state.input === this.state.correctWord) {
-      this.setState({
-        result: 'correct',
-        showWord: false
-      })
+    let correctNumberAdder = 0;
+    let levelsIncreaser = this.state.levelsIncreaser
+    let levelIncreaserAdder = 0;
 
-      this.nextWord();
+    if (this.state.input === this.state.correctWord) {
+      if (this.state.level < 260 && this.state.prevResult !== 'incorrect')
+      {
+        correctNumberAdder = 1;
+        levelIncreaserAdder = levelsIncreaser;
+      }
+
+      this.setState((prevState) => ({
+        result: 'correct',
+        prevResult: 'correct',
+        showWord: false,
+        level: prevState.level + levelIncreaserAdder,
+        correctNumber: prevState.correctNumber + correctNumberAdder,
+        totalNumber: prevState.totalNumber + 1
+      }))
+
+      setTimeout(() => {
+        this.nextWord();
+      }, 1000)
 
     } else {
-      this.setState({
+      (this.state.level > 10) ? levelIncreaserAdder = -levelsIncreaser :  0
+
+      this.setState(prevState => ({
         result: 'incorrect',
-        showWord: true
-      })
+        prevResult: 'incorrect',
+        level: prevState.level + levelIncreaserAdder,
+        showWord: true,
+        firstIncorrect: true
+      }))
+
       this.checkWord();
     }
-    console.log(this.state)
+    let levelincreaserChanger = 0;
+    if ((this.state.level % 10 === 0)
+      && (this.state.totalNumber === 2
+      || (this.state.totalNumber >= 4
+        && this.state.levelsIncreaser !== 2))) {
+      if (this.state.totalNumber === 2) {
+        levelincreaserChanger = 5;
+      } else if (this.state.totalNumber === 4) {
+        levelincreaserChanger = 2;
+      }
+      this.setState({
+        levelsIncreaser: levelincreaserChanger
+      })
+    }
   }
 
   checkWord() {
@@ -328,6 +189,7 @@ class App extends Component {
     dmp.diff_cleanupSemantic(diff);
     let extraLetters = '';
     let missingLetters = '';
+
     diff.forEach(function(value) {
       if (value[0] === 1) {
         extraLetters += value[1];
@@ -336,104 +198,109 @@ class App extends Component {
       }
     })
 
+    // get incorrect letters, sort them and add them to state
+    let wrongLettersTotal = extraLetters + missingLetters + this.state.wrongLettersTotal
+    let letterObj = wrongLettersTotal.split('').reduce((total, letter) => {
+      total[letter] ? total[letter]++ : total[letter] = 1;
+      return total;
+    }, {})
+    let keys = Object.keys(letterObj);
+    keys.sort(function(a, b) { return letterObj[b] - letterObj[a] })[0]
+    console.log('letterObj', letterObj)
+
+    // get if word was incorrect at start middle or end
+    let thirdLength = Math.round(correctWord.length/3)
+    let middleLength = correctWord.length - (2 * thirdLength)
+    let startOfWord = 0;
+    let middleOfWord = 0;
+    let endOfWord = 0;
+    let reverseCorrect = correctWord.split("").reverse().join("")
+    let reverseInput = inputValue.split("").reverse().join("")
+    if (correctWord.slice(0, thirdLength) !== inputValue.slice(0, thirdLength)) {
+      startOfWord = 1;
+    }
+    if (!inputValue.includes(correctWord.slice(thirdLength, middleLength + thirdLength))) {
+      middleOfWord = 1;
+    }
+    if (reverseCorrect.slice(0, thirdLength) !== reverseInput.slice(0, thirdLength)) {
+      endOfWord = 1;
+    }
+    if (startOfWord === 0 && middleOfWord === 0 && endOfWord === 0) {
+      middleOfWord = 1;
+    }
+
+    this.setState(prevState => ({
+      incorrectLetters: keys,
+      incorrectLettersObj: letterObj,
+      wrongLettersTotal: wrongLettersTotal,
+      startOfWord: prevState.startOfWord + startOfWord,
+      middleOfWord: prevState.middleOfWord + middleOfWord,
+      endOfWord: prevState.endOfWord + endOfWord
+    }))
+
     let preValue = [1, ' '];
     let output = ''
+
+
     diff.forEach((value, index, arr) => {
-      if (correctWord !== inputValue) {
-        // check for missing Double
-        if ((value[0] === -1 && preValue[0] === 0 && preValue[1].slice(-1) === value[1][0])
-          || (preValue[0] === -1 && value[0] === 0 && preValue[1].slice(-1) === value[1][0])
-          ) {
+      // check for missing Double or accidental double
+      if ((value[0] === -1 && preValue[0] === 0 && preValue[1].slice(-1) === value[1][0])
+        || (preValue[0] === -1 && value[0] === 0 && preValue[1].slice(-1) === value[1][0])
+        || (value[0] === 1 && preValue[0] === 0 && preValue[1].slice(-1) === value[1][0])
+        || (preValue[0] === 1 && value[0] === 0 && preValue[1].slice(-1) === value[1][0])
+        ) {
 
-          let doubleRules = '';
-          // check if vowel or consonant
-          // output += 'missing Double '
-          ('aeiou'.includes(value[1][0]))
-            ? doubleRules = 'missingDoubleVowel'
-            : doubleRules = 'missingDoubleConsonant'
+        this.setState(prevState => ({
+            rules: Object.assign({}, this.state.rules, {['2xConst']: prevState.rules['2xConst'] += 1})
+          }))
+      }
 
+      // check for wrong order vowels
+      if (extraLetters === missingLetters && value[0] === 1) {
+        if ('aeiou'.includes(value[1][0]) && 'aeiou'.includes(preValue[1])) {
           this.setState(prevState => ({
-              rules: Object.assign({}, this.state.rules, {[doubleRules]: prevState.rules[doubleRules] += 1})
-            }))
-
-          // // check if start middle or end
-          // if (preValue[0] === -1) {
-          //   output += 'start '
-          // } else if (index === arr.length - 1) {
-          //   output += 'end '
-          // } else {
-          //   output += 'middle '
-          // }
-
-
-        }
-
-        // check for accidental double
-        if ((value[0] === 1 && preValue[0] === 0 && preValue[1].slice(-1) === value[1][0])
-          || (preValue[0] === 1 && value[0] === 0 && preValue[1].slice(-1) === value[1][0]))
-        {
-
-          let accDoubleRules = '';
-          'aeiou'.includes(value[1][0])
-            ? accDoubleRules = 'accDoubleVowel'
-            : accDoubleRules = 'accDoubleConsonant'
-
-          this.setState(prevState => ({
-              rules: Object.assign({}, this.state.rules, {[accDoubleRules]: prevState.rules[accDoubleRules] += 1})
-            }))
-
-          // // check if start middle or end
-          // if (preValue[0] === 1) {
-          //   output += 'start '
-          // } else if (index === arr.length - 1) {
-          //   output += 'end '
-          // } else {
-          //   output += 'middle '
-          // }
-        }
-
-        // check for wrong order
-        if (extraLetters === missingLetters && value[0] === 1) {
-          let wrongOrder = '';
-          if ('aeiou'.includes(value[1][0]) && 'aeiou'.includes(preValue[1])) {
-            wrongOrder = 'orderVowel'
-          } else if (!'aeiou'.includes(value[1][0]) && !'aeiou'.includes(preValue[1])) {
-            wrongOrder = 'orderConsonant'
-          } else {
-            wrongOrder = 'orderBoth'
-          }
-
-          this.setState(prevState => ({
-              rules: Object.assign({}, this.state.rules, {[wrongOrder]: prevState.rules[wrongOrder] += 1})
+              rules: Object.assign({}, this.state.rules, {['vowelOrder']: prevState.rules['vowelOrder'] += 1})
             }))
         }
-
-        preValue = [value[0], value[1]]
 
       }
+      // check for wrong letter (vowel and const)
+      if ((value[0] === 1 && preValue[0] === -1)) {
+        let wrongLetter = ''
+
+        if ('aeiou'.includes(preValue[1][0]) && 'aeiou'.includes(value[1][0])) {
+          wrongLetter = 'wrongVowel'
+        } else if (!'aeiou'.includes(preValue[1][0]) && !'aeiou'.includes(value[1][0])) {
+          wrongLetter = 'wrongConst'
+        }
+        if (wrongLetter !== '') {
+          this.setState(prevState => ({
+            rules: Object.assign({}, this.state.rules, {[wrongLetter]: prevState.rules[wrongLetter] += 1})
+          }))
+        }
+      }
+      preValue = [value[0], value[1]]
     })
 
 
+    // check for missing or extra letters
+    if (extraLetters.length !== missingLetters.length) {
+      let lengthCompare = ''
+      if (extraLetters.length > missingLetters.length) {
+        lengthCompare = 'extraLetters'
+      } else if (extraLetters.length < missingLetters.length) {
+        lengthCompare = 'missingLetters'
+      }
+
+      this.setState(prevState => ({
+        rules: Object.assign({}, this.state.rules, {[lengthCompare]: prevState.rules[lengthCompare] += 1})
+      }))
+    }
+
     if (correctWord === inputValue) {
-      console.log('correct')
       this.nextWord();
       document.getElementById('input').value = ''
     } else {
-      // if (extraLetters.length > 0) {
-      //   if (extraLetters.length === 1) {
-      //     'aeiou'.includes(extraLetters)
-      //     ? output += 'one extra vowel '
-      //     : output += 'one extra consonant '
-      //   }
-      // }
-      // if (missingLetters.length > 0) {
-      //   if (missingLetters.length === 1) {
-      //     'aeiou'.includes(missingLetters)
-      //     ? output += 'missing one vowel '
-      //     : output += 'missing one consonant '
-      //   }
-      // }
-
       var replacementRules = [
         {name: 'ough', misspellings: ['augh'], partOfWord: true},
         {name: 'augh', misspellings: ['ough'], partOfWord: true},
@@ -500,7 +367,6 @@ class App extends Component {
         {name: 'aire', misspellings: [], partOfWord: true},
         {name: 'ious', misspellings: [], partOfWord: true},
       ]
-      console.log(this)
       replacementRules.forEach((value) => {
         value['misspellings'].forEach(
           (x, i) => this.checkRules(value['name'], value['misspellings'][i], value['partOfWord'])
@@ -510,11 +376,7 @@ class App extends Component {
 
         }
       })
-
-
     }
-    console.log(output)
-
   }
 
   checkRules(correctSpelling, incorrectSpelling, partOfWord) {
@@ -527,12 +389,11 @@ class App extends Component {
         let ruleName = `${correctSpelling} not ${incorrectSpelling}`
 
         this.setState(prevState => ({
-            rules: Object.assign({}, this.state.rules, {[ruleName]: (prevState.rules[ruleName]) ? prevState.rules[ruleName] += 1 : 1})
+            morphemes: Object.assign({}, this.state.morphemes, {[ruleName]: (prevState.morphemes[ruleName]) ? prevState.morphemes[ruleName] += 1 : 1})
           }))
       }
       if (inputValue.includes(matchArr[1]) && inputValue.includes(matchArr[2]) && partOfWord
     && (matchArr[1] + correctSpelling !== inputValue)) {
-        console.log(`you typed ${correctSpelling} wrong `)
       }
     }
   }
@@ -554,33 +415,41 @@ class App extends Component {
     }))
   }
 
-  // <div className="temp">
-  //   <h1>{this.state.correctWord}</h1>
-  //   <br/>
-  //   <button onClick={() => this.nextWord()}>Next</button>
-  //   <h1>{this.state.result}</h1>
-  // </div>
+  updateVoice(input) {
+    this.setState({
+      activeVoice: input
+    })
+  }
+
+  handleVolumeChange(event) {
+    const decimalValue = (event.target.value/100).toFixed(1)
+    this.setState({
+      volume: decimalValue
+    })
+  }
+
+  handleToggleDefinition() {
+    this.setState(prevState => ({
+      showDefinition: !prevState.showDefinition
+    }));
+  }
+
   render() {
-    console.log(this.state)
     return (
       <div className="App">
-        <Header />
-        <LeftPannel />
+        <Header activeVoice={this.state.activeVoice} updateVoice={this.updateVoice} handleVolumeChange={this.handleVolumeChange} volume={this.state.volume}/>
+
+
+        <LeftPanel level={this.state.level} correctNumber={this.state.correctNumber} totalNumber={this.state.totalNumber} incorrectLetters={this.state.incorrectLetters}
+        startOfWord={this.state.startOfWord}  middleOfWord={this.state.middleOfWord} endOfWord={this.state.endOfWord} firstIncorrect={this.state.firstIncorrect} incorrectLettersObj={this.state.incorrectLettersObj}/>
 
         <div className="centerPannel">
-          <Input correctWord={this.state.correctWord} nextWord={this.nextWord} result={this.state.result} toggleWord={this.toggleWord} playWord={this.playWord} difference={this.state.difference} checkKeyDown={this.checkKeyDown} showWord={this.state.showWord} nextWord={this.nextWord}/>
-          <Settings />
+          <Input correctWord={this.state.correctWord} result={this.state.result} toggleWord={this.toggleWord} playWord={this.playWord} difference={this.state.difference} checkKeyDown={this.checkKeyDown} showWord={this.state.showWord} nextWord={this.nextWord} activeVoice={this.state.activeVoice} updateVoice={this.updateVoice} definition={this.state.definition} showDefinition={this.state.showDefinition} handleToggleDefinition={this.handleToggleDefinition} />
+
+          <BarChart rules={this.state.rules}/>
         </div>
 
-
-
-
-        <RightPannel rules={this.state.rules} />
-
-
-
-        <button style={{position: 'absolute', top: 0, left: 0, background: 'none'}} onClick={() => console.log(this.state)}>State</button>
-
+        <RightPanel morphemes={this.state.morphemes} />
 
         <Footer />
       </div>

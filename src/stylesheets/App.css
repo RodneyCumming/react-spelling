@@ -14,19 +14,66 @@
   width: calc(50% - 350px);
   min-height: calc(100vh - 100px);
   text-align: center;
-  opacity: 0.5;
 }
 
 .chart {
-  text-align: left;
+  text-align: center;
   width: 300px;
   display: block;
   margin: 25px auto 0;
   border-radius: 10px;
-  background: white;
-  height: 300px;
+  background: #f4f6f8;
+  height: 330px;
 }
 
+.pieChartLabelContainer {
+  margin-top: 10px;
+}
+
+.pieChartColorbox {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  vertical-align: bottom;
+}
+
+.pieChartLabel {
+  display: inline-block;
+  line-height: 20px;
+  font-size: 14px;
+  margin-right: 15px;
+  margin-left: 3px;
+  vertical-align: middle;
+  color: gray;
+}
+
+.pieChart__StartLabel {
+  background: #f5b689;
+}
+
+.pieChart__MiddleLabel {
+  background: #ccdbed;
+}
+
+.pieChart__EndLabel {
+  background: #89b2d3;
+}
+
+
+
+.statsProgBarBox {
+  background: #e8ebed;
+  height: 10px;
+  border-radius: 10px;
+  margin: 15px 20px 6px;
+}
+
+.statsProgBar {
+  background: #abc5de;
+  width: 25%;
+  height: 10px;
+  border-radius: 10px 0 0 10px;
+}
 
 .rightPannel {
   float: right;
@@ -47,28 +94,40 @@
 
 .rightPannel li {
   text-align: left;
-  opacity: 0.5;
   padding: 15px 10px;
   font-size: 14px;
-  background: white;
+  background: #f4f6f8;
   border-radius: 10px;
   margin-bottom: 15px;
-  border-bottom: 5px solid #14b9d6;
+  transition: background 0.2s;
+  border-bottom: 5px solid #8ad4e4;
 }
 
 .ruleName {
   display: inline-block;
   width: 130px;
+  color: #7a7b7c;
 }
 
 .ruleScore {
   display: inline-block;
   width: 30px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid #7a7b7c;
   line-height: 30px;
   text-align: center;
   margin-right: 10px;
+  color: #7a7b7c;
+}
+
+.ruleBox:hover {
+  background: #fbfbfb;
+  transition: background 0.2s;
+}
+
+.ruleBoxFaded {
+  opacity: 0.5;
+  transition: opacity 0.2s;
 }
 
 .pieChartContainer {
@@ -78,7 +137,7 @@
 }
 
 .chartHeader {
-  background: #f27935;
+  background: #eeb395;
   color: white;
   line-height: 50px;
   border-radius: 10px 10px 0 0;
@@ -98,7 +157,7 @@
 }
 
 .statsHeader {
-  background: #1fbba6;
+  background: #8bd5cc;
   color: white;
   line-height: 50px;
   border-radius: 10px 10px 0 0;
@@ -109,41 +168,70 @@
 
 .statsBox {
   padding: 14px 20px;
-  border-bottom: 1px solid #d7f6f3;
+  border-bottom: 1px solid #e1f1f2;
+  background: #f4f6f8;
+}
+
+.statsBox:nth-child(4) {
+  border-bottom: none;
+
 }
 
 .statsLabel {
   display: inline-block;
   width: 200px;
+  color: #7a7b7c;
 }
 
 .statsValue {
   display: inline-block;
   text-align: center;
   width: 60px;
+  color: #7a7b7c;
 }
 
-/* settings */
-.settings {
-  border-radius: 10px;
-  /* width: 700px;
-  background: #f4f6f8; */
-  height: 200px;
-  margin-bottom: 40px;
+.LettersBox {
   display: flex;
   justify-content: space-between;
+  padding: 0 20px 14px;
+  background: #f4f6f8;
 }
 
-.settingsOption {
-  background: #f4f6f8;
-  border-bottom: 4px solid #87c7bf;
-  border-radius: 5px;
-  display: inline-block;
-  height: 70px;
-  line-height: 70px;
+.statsLetter {
+  color: #7a7b7c;
+  font-size: 20px;
+  line-height: 30px;
   text-align: center;
-  width: 24%;
 }
+
+.statsNumber {
+  position: absolute;
+  top: -3px;
+  right: -8px;
+  background: #f4f6f8;
+  border: 1px solid #d5c3c3;
+  color: #c19797;
+  border-radius: 50%;
+  width: 15px;
+  font-size: 9px;
+  line-height: 14px;
+  height: 14px;
+  text-align: center;
+}
+
+.statsLetterBox {
+  display: inline-block;
+  border: 1px solid #d0d0d0;
+  border-radius: 35%;
+  width: 30px;
+  margin: 5px 0;
+  height: 30px;
+  position: relative;
+}
+
+
+
+
 
 .footer {
   width: 100%;
@@ -158,4 +246,33 @@
   color: #c7c7c7;
   text-align: center;
   font-size: 13px;
+}
+
+
+
+
+
+
+.barWrapper {
+  /* background: #f4f6f8;
+  padding: 40px;
+  border-radius: 10px;
+  border-bottom: 5px solid #e48989; */
+  opacity: 0.7;
+  margin-top: 7vh;
+}
+
+.list {
+  background: lightgray;
+  height: 600px;
+  width: 300px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  overflow: scroll;
+  padding: 10px;
+}
+
+.list li {
+  margin: 15px 0
 }
