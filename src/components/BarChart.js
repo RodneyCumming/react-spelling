@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2';
+import '../stylesheets/barChart.css'
 
 export class BarChart extends Component {
   render() {

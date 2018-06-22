@@ -1,0 +1,25 @@
+.barWrapper {
+  opacity: 0.7;
+  margin: 7vh 0 30px;
+  width: 700px;
+  display: none;
+}
+
+@media screen and (max-width: 1600px) {
+  .barWrapper {
+    width: 700px;
+    margin: 7vh auto 20px;
+  }
+}
+
+@media screen and (min-width: 1000px)  {
+  .barWrapper {
+    display: block;
+  }
+}
+
+@media screen and (max-aspect-ratio: 1/2) {
+  .barWrapper {
+    display: block;
+  }
+}

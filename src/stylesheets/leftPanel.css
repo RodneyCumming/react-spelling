@@ -1,0 +1,206 @@
+
+.LeftPanel {
+  float: left;
+  min-width: 700px;
+  width: 100%;
+  margin: 0 auto 40px;
+  min-height: 0;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+
+.chart {
+  text-align: center;
+  width: 300px;
+  display: block;
+  float: left;
+  margin: 0;
+  border-radius: 10px;
+  background: #f4f6f8;
+  height: 330px;
+}
+
+.pieChartLabelContainer {
+  margin-top: 10px;
+}
+
+.pieChartColorbox {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  vertical-align: bottom;
+}
+
+.pieChartLabel {
+  display: inline-block;
+  line-height: 20px;
+  font-size: 14px;
+  margin-right: 15px;
+  margin-left: 3px;
+  vertical-align: middle;
+  color: gray;
+}
+
+.pieChart__StartLabel {
+  background: #f5b689;
+}
+
+.pieChart__MiddleLabel {
+  background: #ccdbed;
+}
+
+.pieChart__EndLabel {
+  background: #89b2d3;
+}
+
+
+
+.statsProgBarBox {
+  background: #e8ebed;
+  height: 10px;
+  border-radius: 10px;
+  margin: 15px 20px 6px;
+}
+
+.statsProgBar {
+  background: #abc5de;
+  width: 25%;
+  height: 10px;
+  border-radius: 10px 0 0 10px;
+}
+
+
+.pieChartContainer {
+  margin: auto;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.chartHeader {
+  background: #eeb395;
+  color: white;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 40px;
+  margin: 0 0 20px;
+}
+
+.stats {
+  text-align: left;
+  width: 300px;
+  display: block;
+  float: left;
+  margin: 0;
+  border-radius: 10px;
+  background: #f4f6f8;
+  height: 330px;
+}
+
+
+
+
+.statsHeader {
+  background: #8bd5cc;
+  color: white;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.statsBox {
+  padding: 14px 20px;
+  border-bottom: 1px solid #e1f1f2;
+  background: #f4f6f8;
+}
+
+.statsBox:nth-child(4) {
+  border-bottom: none;
+
+}
+
+.statsLabel {
+  display: inline-block;
+  width: 200px;
+  color: #7a7b7c;
+}
+
+.statsValue {
+  display: inline-block;
+  text-align: center;
+  width: 60px;
+  color: #7a7b7c;
+}
+
+.LettersBox {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 14px;
+  background: #f4f6f8;
+}
+
+.statsLetter {
+  color: #7a7b7c;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.statsNumber {
+  position: absolute;
+  top: -3px;
+  right: -8px;
+  background: #f4f6f8;
+  border: 1px solid #d5c3c3;
+  color: #c19797;
+  border-radius: 50%;
+  width: 15px;
+  font-size: 9px;
+  line-height: 14px;
+  height: 14px;
+  text-align: center;
+}
+
+.statsLetterBox {
+  display: inline-block;
+  border: 1px solid #d0d0d0;
+  border-radius: 35%;
+  width: 30px;
+  margin: 5px 0;
+  height: 30px;
+  position: relative;
+}
+
+/* larger than mobile */
+
+@media screen and (min-width: 1000px) {
+  .LeftPanel {
+    display: block;
+    float: right;
+    width: calc(50% - 350px);
+    margin: 0;
+    min-width: 0;
+    min-height: calc(100vh - 100px);
+  }
+  .stats, .chart {
+    margin: 50px auto 0;
+    float: none;
+  }
+}
+
+
+/* tablet */
+
+@media screen and (min-width: 1000px) and (max-width: 1400px) {
+  .LeftPanel {
+    display: block;
+    float: left;
+    width: 30%;
+  }
+}

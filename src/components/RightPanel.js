@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../stylesheets/RightPannel.css';
+import '../stylesheets/rightPanel.css';
 
 export class RightPanel extends Component {
   render() {
@@ -15,7 +15,7 @@ export class RightPanel extends Component {
     }
     )
     return (
-      <div className="rightPannel">
+      <div className="rightPanel">
         <ul>
           {scoresList}
         </ul>

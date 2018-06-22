@@ -1,7 +1,6 @@
-import '../stylesheets/Header.css';
 import React, { Component } from 'react';
 import VolumeUp from 'react-icons/lib/fa/volume-up';
-import '../stylesheets/Header.css';
+import '../stylesheets/header.css';
 
 export class Header extends Component {
 
@@ -17,15 +16,12 @@ export class Header extends Component {
 
   componentDidMount() {
     this.populateVoiceList()
-    //window.addEventListener('mouseup', () => this.hideDropDown())
   }
 
   populateVoiceList() {
     let voices;
     let activeVoice;
     window.speechSynthesis.onvoiceschanged = () => {
-
-
       voices = window.speechSynthesis.getVoices();
       if (voices.some(e => (e.name === 'Google UK English Female'))) {
         activeVoice = 'Google UK English Female'
@@ -42,20 +38,13 @@ export class Header extends Component {
       this.props.updateVoice(activeVoice)
     };
 
+    if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+      voices = window.speechSynthesis.getVoices();
+      this.setState({
+        voicesList: voices
+      })
+    }
 
-    // for(let i = 0; i < voices.length ; i++) {
-    //   console.log(voices[i])
-    //   // var option = <option>;
-    //   // option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
-    //   //
-    //   // if(voices[i].default) {
-    //   //   option.textContent += ' -- DEFAULT';
-    //   // }
-    //   //
-    //   // option.setAttribute('data-lang', voices[i].lang);
-    //   // option.setAttribute('data-name', voices[i].name);
-    //   // </option>
-    // }
   }
 
   toggleVoiceDD() {
@@ -73,6 +62,8 @@ export class Header extends Component {
         || value.name === 'Google UK English Male'
         || value.name === 'Google UK English Female'
         || value.name === 'Google US English'
+        || value.name.includes('Microsoft')
+        || value.name.includes('apple')
       ) {
         return <li className={value.name === this.props.activeVoice ? "voiceDDItem active": "voiceDDItem"} onClick={() => this.props.updateVoice(value.name)} key={value.name}>{value.name}</li>
       }

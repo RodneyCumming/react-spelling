@@ -1,7 +1,4 @@
 Current tasks:
-☐ make responsive
-☐ check different browsers
-☐ check where I can use function components
 
 Nessesary functionality:
 ☐ improve functionality of progress bar (smooth transition)
@@ -23,10 +20,16 @@ funture functinality:
 ☐ hot keys
 
 styling:
+  ☐ different colour bottom border for right panel
+
+content:
 
 Bugs:
   ☐ volume bar hard to use
   ☐ issue with counting incorrect letters -'breif'
+  ☐ definitions should be bigger than one letter '.' - red
+  ☐ percent should increase if correct after already gotten work wrong
+  ☐ warning message to use chrome, bottom right corner pop up
 
 tests:
 

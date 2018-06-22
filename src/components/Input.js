@@ -7,7 +7,7 @@ import Forward from 'react-icons/lib/fa/step-forward';
 import VolumeUp from 'react-icons/lib/fa/volume-up';
 import Search from 'react-icons/lib/fa/search';
 
-import '../stylesheets/Input.css';
+import '../stylesheets/input.css';
 
 export class Input extends Component {
   constructor(props) {

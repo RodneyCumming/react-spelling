@@ -1,8 +1,9 @@
+// React
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 // Stylesheets
-import '../stylesheets/App.css';
+import '../stylesheets/app.css';
 
 // data
 import { wordlist } from '../data/spellingData';
@@ -103,6 +104,7 @@ class App extends Component {
       result: 'result'
     })
     this.playWord()
+    console.log(this.state)
   }
 
   playWord() {
@@ -439,17 +441,17 @@ class App extends Component {
       <div className="App">
         <Header activeVoice={this.state.activeVoice} updateVoice={this.updateVoice} handleVolumeChange={this.handleVolumeChange} volume={this.state.volume}/>
 
+        <RightPanel morphemes={this.state.morphemes} />
 
-        <LeftPanel level={this.state.level} correctNumber={this.state.correctNumber} totalNumber={this.state.totalNumber} incorrectLetters={this.state.incorrectLetters}
-        startOfWord={this.state.startOfWord}  middleOfWord={this.state.middleOfWord} endOfWord={this.state.endOfWord} firstIncorrect={this.state.firstIncorrect} incorrectLettersObj={this.state.incorrectLettersObj}/>
-
-        <div className="centerPannel">
+        <div className="centerPanel">
           <Input correctWord={this.state.correctWord} result={this.state.result} toggleWord={this.toggleWord} playWord={this.playWord} difference={this.state.difference} checkKeyDown={this.checkKeyDown} showWord={this.state.showWord} nextWord={this.nextWord} activeVoice={this.state.activeVoice} updateVoice={this.updateVoice} definition={this.state.definition} showDefinition={this.state.showDefinition} handleToggleDefinition={this.handleToggleDefinition} />
 
           <BarChart rules={this.state.rules}/>
         </div>
 
-        <RightPanel morphemes={this.state.morphemes} />
+        <LeftPanel level={this.state.level} correctNumber={this.state.correctNumber} totalNumber={this.state.totalNumber} incorrectLetters={this.state.incorrectLetters}
+          startOfWord={this.state.startOfWord}  middleOfWord={this.state.middleOfWord} endOfWord={this.state.endOfWord} firstIncorrect={this.state.firstIncorrect} incorrectLettersObj={this.state.incorrectLettersObj}/>
+
 
         <Footer />
       </div>

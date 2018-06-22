@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import VolumeUp from 'react-icons/lib/fa/volume-up';
 import {PieChart} from 'react-easy-chart';
-import '../stylesheets/LeftPannel.css';
+import '../stylesheets/leftPanel.css';
 
 export class LeftPanel extends Component {
   render() {
     return (
-      <div className="LeftPannel">
+      <div className="LeftPanel">
         <div className="stats">
           <h1 className="statsHeader">Stats</h1>
           <ul>
