@@ -13,7 +13,7 @@ import { levels } from '../data/levels';
 import { diff_match_patch } from '../libraries/diff_match_patch_uncompressed.js'
 
 // Components
-import { Footer } from './Footer'
+import { Footer } from './/Footer'
 import { Header } from './Header'
 import { LeftPanel } from './LeftPanel'
 import { RightPanel } from './RightPanel'

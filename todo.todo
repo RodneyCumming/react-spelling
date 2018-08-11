@@ -1,4 +1,11 @@
 Current tasks:
+  ☐ volume bar hard to use
+  ☐ issue with counting incorrect letters -'breif'
+  ☐ percent should increase if correct after already gotten work wrong
+  ☐ warning message to use chrome, bottom right corner pop up
+  ☐ definitions should be bigger than one letter '.' - red
+  ☐ and sometimes one word answers are just wrong 'male'
+  ☐ remove uneccesary packages
 
 Nessesary functionality:
 ☐ improve functionality of progress bar (smooth transition)
@@ -25,15 +32,9 @@ styling:
 content:
 
 Bugs:
-  ☐ volume bar hard to use
-  ☐ issue with counting incorrect letters -'breif'
-  ☐ definitions should be bigger than one letter '.' - red
-  ☐ percent should increase if correct after already gotten work wrong
-  ☐ warning message to use chrome, bottom right corner pop up
 
 tests:
 
 Refactoring:
 
 Archetechture:
-  ☐ remove uneccesary packages
