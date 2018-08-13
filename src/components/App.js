@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 // Stylesheets
-import '../stylesheets/app.css';
+import '../stylesheets/App.css';
 
 // data
 //import { wordlist } from '../data/spellingData';
