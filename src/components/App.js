@@ -6,14 +6,14 @@ import { findDOMNode } from 'react-dom';
 import '../stylesheets/app.css';
 
 // data
-import { wordlist } from '../data/spellingData';
-import { levels } from '../data/levels';
+//import { wordlist } from '../data/spellingData';
+//import { levels } from '../data/levels';
 
 // libraries
 import { diff_match_patch } from '../libraries/diff_match_patch_uncompressed.js'
 
 // Components
-import { Footer } from './/Footer'
+import { Footer } from './Footer'
 import { Header } from './Header'
 import { LeftPanel } from './LeftPanel'
 import { RightPanel } from './RightPanel'
@@ -95,16 +95,37 @@ class App extends Component {
       return weightedLevel
     }
     let nearLevel = getNearLevel(currentLevel)
-    let randomWord = levels[nearLevel][Math.floor(Math.random() * levels[nearLevel].length)]
-    this.setState({
-      correctWord: randomWord,
-      definition: wordlist[randomWord]['definition'],
-      difference: [],
-      showDefinition: false,
-      result: 'result'
+
+    this.fetchWord(nearLevel)
+    // let randomWord = levels[nearLevel][Math.floor(Math.random() * levels[nearLevel].length)]
+    // this.setState({
+    //   correctWord: randomWord,
+    //   definition: wordlist[randomWord]['definition'],
+    //   difference: [],
+    //   showDefinition: false,
+    //   result: 'result'
+    // })
+    // this.playWord()
+    // console.log(this.state)
+  }
+
+  fetchWord(level) {
+    console.log('fetch word', level)
+    fetch(`/api/spelling?diff=${level}`)
+    .then(function (data) {
+      return data.json()
     })
-    this.playWord()
-    console.log(this.state)
+    .then(json => {
+      this.setState({
+        correctWord: json['0']['title'],
+        definition: json['0']['definition'],
+        difference: [],
+        showDefinition: false,
+        result: 'result'
+      })
+    })
+    .then(() => this.playWord())
+    .then(() => console.log(this.state))
   }
 
   playWord() {

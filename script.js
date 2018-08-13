@@ -1,4 +1,4 @@
-
+ 
 var words = Object.keys(wordlist[0])
 var correctWord ='';
 var typedWord = document.getElementById('input').value
