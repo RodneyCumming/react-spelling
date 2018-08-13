@@ -3,14 +3,10 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 // Stylesheets
-import '../stylesheets/App.css';
-
-// data
-//import { wordlist } from '../data/spellingData';
-//import { levels } from '../data/levels';
+import '../stylesheets/app.css';
 
 // libraries
-import { diff_match_patch } from '../libraries/diff_match_patch_uncompressed.js'
+import { diff_match_patch } from '../libraries/diff_match_patch_uncompressed.js';
 
 // Components
 import { Footer } from './Footer'
