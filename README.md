@@ -55,3 +55,7 @@ www.rdny.me:4000 :zap:
 
 - **[MIT license](http://badges.mit-license.org)**
 - Copyright 2018 © <a href="http://fvcproductions.com" target="_blank">Rodney Cumming</a>.
+
+## Todo
+
+- [ ] Fix bug preventing level word difficulty increasing
