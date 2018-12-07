@@ -25,23 +25,23 @@
 </div>
 <br>
 
+## About
+
+This web app provides users with a spelling practice environment, gives live feedback to them about the types of mistakes they are making, and evaluates the users level to provide appropriately difficult words. :pencil2:
+
 ## Objective
 
-Showcase web development and design abilities to potential employers and clients :eyes:. And, provide ways for them to contact me easily :wave:.
-
-## Features
-
-- Parallax scrolling
-- Responsive design
-- Custom designed images
-- Pop-up components
+Build a web app to improve my understanding of the MERN stack and data visualization. :chart_with_upwards_trend:
 
 ## Technologies
 
 - HTML5
 - CSS3
 - React.js
-- Adobe Illustrator
+- MongoDB
+- Express
+- Node.js
+- Digital Ocean
 
 ## Live Website
 
@@ -57,8 +57,3 @@ www.rdny.me:4000 :zap:
 
 - **[MIT license](http://badges.mit-license.org)**
 - Copyright 2018 © <a href="http://fvcproductions.com" target="_blank">Rodney Cumming</a>.
-
-## Acknowledgments
-
-- Inspired by [www.firewatchgame.com](http://www.firewatchgame.com/)
-- Parallax implementation inspired by [Sam Beckham](https://codepen.io/samdbeckham/pen/OPXPNp)
