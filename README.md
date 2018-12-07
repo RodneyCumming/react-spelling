@@ -1,6 +1,4 @@
 <div align="center">
- <img src="./src/images/logo.svg" width="100" alt="R logo">
- <br>
  <h1 size="+2">Spelling Analyser</h1>
  <h4><i>Practice spelling using auto-adjusting difficulty algorithm, text-to-speech, and live feedback.</i></h4>
 
@@ -21,7 +19,7 @@
 	</a>
 </p>
 <br>
- <img src="./screenshot.png" width="700" alt="landing page scroll animation">
+ <img src="./readme-images/screenshot.png" width="700" alt="landing page scroll animation">
 </div>
 <br>
 
