@@ -58,4 +58,4 @@ www.rdny.me:4000 :zap:
 
 ## Todo
 
-- [ ] Fix bug preventing level word difficulty increasing
+- [ ] Fix bug preventing word difficulty increasing
