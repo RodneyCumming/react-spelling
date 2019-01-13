@@ -43,7 +43,7 @@ Build a web app to improve my understanding of the MERN stack and data visualiza
 
 ## Live Website
 
-www.rdny.me:4000 :zap:
+www.roddo.me:4000 :zap:
 
 ## Author
 
